@@ -647,7 +647,7 @@ const connectionMonitor = {
   },
 };
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
 
