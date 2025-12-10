@@ -1,0 +1,120 @@
+<!-- views/reportPages/reportSubmission/reportSubmission.html -->
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nộp báo cáo/Report Submission</title>
+    <link
+      rel="stylesheet"
+      href="reportPages/reportSubmission/reportSubmission.css"
+    />
+  </head>
+  <body>
+    <div class="report-container">
+      <div class="container-header">
+        <h1>Nộp báo cáo kiểm tra</h1>
+        <p>Report Submission System</p>
+      </div>
+
+      <div class="form-content">
+        <div class="alert" id="alertBox"></div>
+
+        <div class="progress-indicator">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-title">
+            <div class="section-icon">1</div>
+            Thông tin báo cáo / Report Information
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="reportType">Loại báo cáo / Report Type</label>
+              <div class="report-type-toggle">
+                <div class="toggle-option active" data-type="daily">
+                  📅 Hàng ngày / Daily
+                </div>
+                <div class="toggle-option" data-type="weekly">
+                  📊 Hàng tuần / Weekly
+                </div>
+              </div>
+              <input type="hidden" id="reportType" value="daily" />
+            </div>
+
+            <div class="form-group">
+              <label for="inspectionTime">Giờ kiểm tra / Inspection Time</label>
+              <input
+                type="time"
+                id="inspectionTime"
+                class="form-control"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-title">
+            <div class="section-icon">2</div>
+            Chi tiết kiểm tra / Inspection Details
+          </div>
+
+          <div id="dailyReport" class="report-form active">
+            <div class="report-header">
+              <div class="report-title">BÁO CÁO HÀNG NGÀY / DAILY REPORT</div>
+              <div class="report-date" id="dailyDate"></div>
+            </div>
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th>Công việc kiểm tra / Task</th>
+                  <th>✓ Có / Yes</th>
+                  <th>Ghi chú / Notes</th>
+                  <th>✗ Không / No</th>
+                  <th>Ghi chú / Notes</th>
+                </tr>
+              </thead>
+              <tbody id="dailyTasks"></tbody>
+            </table>
+          </div>
+
+          <div id="weeklyReport" class="report-form">
+            <div class="report-header">
+              <div class="report-title">BÁO CÁO HÀNG TUẦN / WEEKLY REPORT</div>
+              <div class="report-date" id="weeklyDate"></div>
+            </div>
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th>Công việc kiểm tra / Task</th>
+                  <th>✓ Có / Yes</th>
+                  <th>Ghi chú / Notes</th>
+                  <th>✗ Không / No</th>
+                  <th>Ghi chú / Notes</th>
+                </tr>
+              </thead>
+              <tbody id="weeklyTasks"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="submit-section">
+          <button id="submitReport" class="submit-button">
+            <div class="loading-spinner" id="loadingSpinner"></div>
+            <span id="submitText">📤 Gửi báo cáo / Submit Report</span>
+          </button>
+          <p style="margin-top: 12px; color: var(--gray-600); font-size: 14px">
+            Vui lòng kiểm tra kỹ thông tin trước khi gửi
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="reportPages/reportSubmission/reportSubmission.js"></script>
+    <script src="/components/header/headerLoader.js?v=1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,282 @@
+<!-- views\userPages\userMonthlyRecord\userMonthlyRecord.html -->
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Xem và quản lý bản ghi lương hàng tháng của nhân viên"
+    />
+    <title>Bản Ghi Hàng Tháng</title>
+    <link
+      rel="stylesheet"
+      href="userPages/userMonthlyRecord/userMonthlyRecord.css?=v1.0"
+    />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Page Header -->
+      <header>
+        <h1>Xem Bản Ghi Lương Hàng Tháng</h1>
+      </header>
+
+      <!-- Filters Section -->
+      <section class="filters" role="search" aria-label="Bộ lọc tìm kiếm">
+        <div class="filter-group">
+          <label for="yearFilter">Năm:</label>
+          <div style="display: flex; align-items: center; gap: 5px">
+            <select id="yearFilter" aria-describedby="year-help"></select>
+            <button
+              id="yearReverse"
+              class="reverse-btn"
+              title="Tìm bản ghi KHÔNG phải năm này"
+              aria-label="Đảo ngược tìm kiếm năm"
+            >
+              ≠
+            </button>
+          </div>
+          <small id="year-help" class="sr-only">Chọn năm để lọc bản ghi</small>
+        </div>
+
+        <div class="filter-group">
+          <label for="monthFilter">Tháng:</label>
+          <div style="display: flex; align-items: center; gap: 5px">
+            <select id="monthFilter" aria-describedby="month-help">
+              <option value="">Tất cả tháng</option>
+              <option value="1">Tháng 1</option>
+              <option value="2">Tháng 2</option>
+              <option value="3">Tháng 3</option>
+              <option value="4">Tháng 4</option>
+              <option value="5">Tháng 5</option>
+              <option value="6">Tháng 6</option>
+              <option value="7">Tháng 7</option>
+              <option value="8">Tháng 8</option>
+              <option value="9">Tháng 9</option>
+              <option value="10">Tháng 10</option>
+              <option value="11">Tháng 11</option>
+              <option value="12">Tháng 12</option>
+            </select>
+            <button
+              id="monthReverse"
+              class="reverse-btn"
+              title="Tìm bản ghi KHÔNG phải tháng này"
+              aria-label="Đảo ngược tìm kiếm tháng"
+            >
+              ≠
+            </button>
+          </div>
+          <small id="month-help" class="sr-only"
+            >Chọn tháng để lọc bản ghi</small
+          >
+        </div>
+
+        <div class="filter-group">
+          <label for="costCenterFilter">Trạm:</label>
+          <div style="display: flex; align-items: center; gap: 5px">
+            <select
+              id="costCenterFilter"
+              aria-describedby="cost-center-help"
+            ></select>
+            <button
+              id="costCenterReverse"
+              class="reverse-btn"
+              title="Tìm bản ghi KHÔNG phải trạm này"
+              aria-label="Đảo ngược tìm kiếm trạm"
+            >
+              ≠
+            </button>
+          </div>
+          <small id="cost-center-help" class="sr-only"
+            >Chọn trạm để lọc bản ghi</small
+          >
+        </div>
+
+        <div class="filter-group">
+          <label for="bankFilter">Ngân hàng:</label>
+          <div style="display: flex; align-items: center; gap: 5px">
+            <input
+              type="text"
+              id="bankFilter"
+              placeholder="Tìm kiếm ngân hàng..."
+              aria-describedby="bank-help"
+            />
+            <button
+              id="bankReverse"
+              class="reverse-btn"
+              title="Tìm bản ghi KHÔNG chứa ngân hàng này"
+              aria-label="Đảo ngược tìm kiếm ngân hàng"
+            >
+              ≠
+            </button>
+          </div>
+          <small id="bank-help" class="sr-only"
+            >Tìm kiếm theo tên ngân hàng (tìm kiếm một phần)</small
+          >
+        </div>
+
+        <div class="filter-group">
+          <button id="applyFilters" type="button" aria-describedby="apply-help">
+            Áp dụng
+          </button>
+          <small id="apply-help" class="sr-only"
+            >Áp dụng các bộ lọc đã chọn</small
+          >
+        </div>
+
+        <div class="filter-group">
+          <button
+            id="resetFilters"
+            type="button"
+            class="btn-secondary"
+            aria-describedby="reset-help"
+          >
+            Đặt lại
+          </button>
+          <small id="reset-help" class="sr-only">Xóa tất cả bộ lọc</small>
+        </div>
+
+        <div class="filter-group">
+          <button id="exportPDF" type="button" aria-describedby="export-help">
+            Xuất PDF
+          </button>
+          <small id="export-help" class="sr-only"
+            >Xuất báo cáo chi lương dạng PDF</small
+          >
+        </div>
+
+        <div class="filter-group">
+          <button
+            id="exportExcel"
+            type="button"
+            aria-describedby="export-excel-help"
+          >
+            Xuất Excel
+          </button>
+          <small id="export-excel-help" class="sr-only"
+            >Xuất báo cáo chi lương dạng Excel</small
+          >
+        </div>
+      </section>
+
+      <!-- Loading Indicator -->
+      <div id="loading" class="loading" role="status" aria-live="polite">
+        Đang tải dữ liệu...
+      </div>
+
+      <!-- Data Table -->
+      <main>
+        <div class="table-container">
+          <table
+            id="recordsTable"
+            role="table"
+            aria-label="Bảng bản ghi lương hàng tháng"
+          >
+            <thead>
+              <tr role="row">
+                <th scope="col" role="columnheader">Nhân viên</th>
+                <th scope="col" role="columnheader">Tháng/Năm</th>
+                <th scope="col" role="columnheader">Lương cơ bản</th>
+                <th scope="col" role="columnheader">Lương theo giờ</th>
+                <th scope="col" role="columnheader">Lương tăng ca</th>
+                <th scope="col" role="columnheader">Lương thực lĩnh</th>
+                <th scope="col" role="columnheader">Thuế</th>
+                <th scope="col" role="columnheader">Trạm</th>
+                <th scope="col" role="columnheader">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody" role="rowgroup">
+              <!-- Table rows will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav
+          class="pagination"
+          role="navigation"
+          aria-label="Phân trang"
+          id="pagination"
+        >
+          <!-- Pagination buttons will be populated by JavaScript -->
+        </nav>
+      </main>
+    </div>
+
+    <!-- Modal for Record Details -->
+    <div
+      id="recordModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <button
+          class="close"
+          type="button"
+          aria-label="Đóng hộp thoại"
+          title="Đóng"
+        >
+          &times;
+        </button>
+        <div id="modalContent" role="document">
+          <!-- Modal content will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen Reader Only Text -->
+    <div class="sr-only" aria-live="polite" id="announcements"></div>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="userPages/userMonthlyRecord/userMonthlyRecord.js?=v1.7"></script>
+    <script src="/components/header/headerLoader.js?v=1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional CSS for screen readers -->
+    <style>
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* Skip links for keyboard navigation */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: var(--primary-color);
+        color: white;
+        padding: 8px;
+        text-decoration: none;
+        border-radius: 4px;
+        z-index: 1001;
+      }
+
+      .skip-link:focus {
+        top: 6px;
+      }
+    </style>
+
+    <!-- Skip navigation for accessibility -->
+    <a href="#recordsTable" class="skip-link">Bỏ qua đến bảng dữ liệu</a>
+  </body>
+</html>

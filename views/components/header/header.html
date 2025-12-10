@@ -1,0 +1,414 @@
+<!-- views/components/header/header.html -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+/>
+
+<style>
+  /* Header specific styles with dark mode support */
+  .dashboard-header {
+    background-color: var(--bs-body-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(var(--bs-body-color-rgb), 0.15);
+  }
+
+  /* Use CSS custom properties for colors that adapt to dark mode */
+  .dashboard-header .btn-outline-secondary {
+    border-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+  }
+
+  .dashboard-header .btn-outline-secondary:hover {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .btn-group {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .btn-group .btn {
+    white-space: nowrap;
+  }
+
+  /* Ensure buttons maintain readable size */
+  .header-actions .btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Responsive behavior - allow wrapping at reasonable breakpoints */
+  @media (max-width: 1400px) {
+    .header-actions {
+      gap: 0.5rem;
+    }
+
+    .nav-actions {
+      gap: 0.4rem;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .header-actions {
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-actions {
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .header-actions {
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-actions {
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-actions {
+      flex-wrap: wrap;
+      overflow-x: visible;
+    }
+
+    .nav-actions {
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .btn-group {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .btn-group .btn {
+      width: 100%;
+    }
+
+    .header-actions .btn {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .header-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .nav-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .btn-group {
+      flex: none;
+    }
+
+    .btn-group .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<header class="dashboard-header py-4">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-6 text-lg-end mt-3 mt-lg-0">
+        <div class="header-actions">
+          <!-- Quick Actions Navigation -->
+          <div class="nav-actions">
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="location.href='/documentSummaryUnapproved'"
+            >
+              <i class="bi-exclamation-circle"></i> Phiếu chưa duyệt
+            </button>
+
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="location.href='/documentSubmission'"
+            >
+              <i class="bi bi-plus-circle"></i> Tạo phiếu mới
+            </button>
+
+            <!-- Document Summary Dropdown -->
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-file-text"></i> Tóm tắt phiếu
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/documentSummaryProposal"
+                    ><i class="bi bi-file-earmark-medical"></i> Tóm tắt đề
+                    xuất</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/documentSummaryProjectProposal"
+                    ><i class="bi bi-journal-text"></i> Tóm tắt đề nghị dự án</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/documentSummaryPurchasing"
+                    ><i class="bi bi-cart"></i> Tóm tắt mua hàng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/documentSummaryPayment"
+                    ><i class="bi bi-cash-stack"></i> Tóm tắt thanh toán</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/documentSummaryDelivery"
+                    ><i class="bi bi-truck"></i> Tóm tắt xuất kho</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/documentSummaryReceipt"
+                    ><i class="bi bi-box-arrow-in-down"></i> Tóm tắt nhập kho</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/documentSummaryAdvancePayment"
+                    ><i class="bi bi-currency-exchange"></i> Tóm tắt tạm ứng</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/documentSummaryAdvancePaymentReclaim"
+                    ><i class="bi bi-arrow-counterclockwise"></i> Tóm tắt thu
+                    hồi tạm ứng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/documentInGroupDeclaration"
+                    ><i class="bi bi-collection"></i> Phiếu theo nhóm kê khai</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Report Dropdown -->
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-clipboard-data"></i> Báo cáo
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/reportFinanceCostCenter"
+                    ><i class="bi bi-file-earmark-bar-graph"></i> Bản ghi hoạt
+                    động tài chính</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/userMonthlyRecord">
+                    <i class="bi bi-calendar"></i> Bản ghi hàng tháng</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- SFTP Dropdown -->
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-folder"></i> Quản tệp tin
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/fileApproval"
+                    ><i class="bi bi-check-circle"></i> Phê duyệt tệp tin</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/sftpPurchasing"
+                    ><i class="bi bi-cart-check"></i> Mua hàng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/sftpTechnical"
+                    ><i class="bi bi-tools"></i> Công nghệ</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/sftpAccounting"
+                    ><i class="bi bi-calculator"></i> Kế toán</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/sftpNorthernRepresentativeOffice"
+                    ><i class="bi bi-building"></i> Văn phòng đại diện miền
+                    Bắc</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Finance Dropdown -->
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-file-text"></i> Quản tài chính
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/financeSummary"
+                    ><i class="bi-graph-up-arrow"></i> Tổng hợp</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/financeGas"
+                    ><i class="bi-fire"></i> Mua bán khí</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/financeCostCenterConstruction"
+                    ><i class="bi-tools"></i> Mua sắm và xây dựng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/financeCostCenterBank"
+                    ><i class="bi-bank"></i> Ngân hàng</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Management Dropdown -->
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-shield-lock"></i> Quản hệ thống
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/userSalaryCalculation"
+                    ><i class="bi bi-person-gear"></i> Thông tin người dùng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/userPermission"
+                    ><i class="bi bi-shield-lock"></i> Phân quyền người dùng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/costCenterAdmin"
+                    ><i class="bi bi-geo-alt"></i> Phân trạm</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/productAdmin"
+                    ><i class="bi bi-tags"></i> Phân mã sản phẩm</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <a
+              href="/message"
+              class="btn btn-outline-secondary btn-sm"
+              id="messageBtn"
+            >
+              <i class="bi bi-chat-left-text"></i> Bảng tin nhắn
+            </a>
+            <a
+              href="/changePassword"
+              class="btn btn-outline-secondary btn-sm"
+              id="changePasswordBtn"
+            >
+              <i class="bi bi-chat-left-text"></i> Đổi mật khẩu
+            </a>
+            <a
+              href="/logout"
+              class="btn btn-outline-secondary btn-sm"
+              id="logoutBtn"
+            >
+              <i class="bi bi-box-arrow-right"></i> Đăng xuất
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Enable Bootstrap dark mode based on system preference
+  function setBootstrapTheme() {
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    document.documentElement.setAttribute(
+      "data-bs-theme",
+      prefersDark ? "dark" : "light"
+    );
+  }
+
+  // Set theme on load
+  setBootstrapTheme();
+
+  // Listen for changes in system preference
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", setBootstrapTheme);
+</script>
